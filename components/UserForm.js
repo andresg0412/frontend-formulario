@@ -30,8 +30,8 @@ const languageOptions = [
   { value: "en", label: "English" }
 ];
 
-export default function UserForm({ onSubmit }) {
-  const [form, setForm] = useState({
+export default function UserForm({ onSubmit, resetForm }) {
+  const initialForm = {
     inmueble: "",
     fechaLlegada: "",
     fechaSalida: "",
@@ -47,7 +47,14 @@ export default function UserForm({ onSubmit }) {
       email: ""
     },
     language: "es"
-  });
+  };
+  const [form, setForm] = useState(initialForm);
+  // Limpiar formulario si resetForm cambia a true
+  React.useEffect(() => {
+    if (resetForm) {
+      setForm(initialForm);
+    }
+  }, [resetForm]);
   const [enviando, setEnviando] = useState(false);
   const [error, setError] = useState("");
 
